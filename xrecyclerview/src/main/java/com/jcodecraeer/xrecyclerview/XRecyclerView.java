@@ -197,6 +197,11 @@ public class XRecyclerView extends RecyclerView {
             }
         }
     }
+    public void setTextHeaderRefresh(String normal,String release_to_refresh, String refreshing, String done){
+        if(pullRefreshEnabled){
+            mRefreshHeader.setTextHeaderRefresh(normal,release_to_refresh,refreshing,done);
+        }
+    }
     public void refresh() {
         if (pullRefreshEnabled && mLoadingListener != null) {
             mRefreshHeader.setState(ArrowRefreshHeader.STATE_REFRESHING);
@@ -312,7 +317,7 @@ public class XRecyclerView extends RecyclerView {
         mWrapAdapter.adapter.notifyItemRemoved(adjPos);
         mWrapAdapter.adapter.notifyItemRangeChanged(headerSize, listData.size(),new Object());
     }
-    
+
     public<T> void notifyItemInserted(List<T> listData,int position) {
         if(mWrapAdapter.adapter == null)
             return;
@@ -366,11 +371,11 @@ public class XRecyclerView extends RecyclerView {
                 status = mRefreshHeader.getState();
             if (
                     layoutManager.getChildCount() > 0
-                    && lastVisibleItemPosition >= adjAdapterItemCount - limitNumberToCallLoadMore
-                    && adjAdapterItemCount >= layoutManager.getChildCount()
-                    && !isNoMore
-                    && status < ArrowRefreshHeader.STATE_REFRESHING
-            )
+                            && lastVisibleItemPosition >= adjAdapterItemCount - limitNumberToCallLoadMore
+                            && adjAdapterItemCount >= layoutManager.getChildCount()
+                            && !isNoMore
+                            && status < ArrowRefreshHeader.STATE_REFRESHING
+                    )
             {
                 isLoadingData = true;
                 if (mFootView instanceof LoadingMoreFooter) {
